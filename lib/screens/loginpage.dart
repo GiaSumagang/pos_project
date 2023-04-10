@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pos_project/POS%20screens/dashboard.dart';
 import 'package:pos_project/pages/homepage.dart';
 import 'package:pos_project/screens/registerpage.dart';
 
@@ -33,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
                 Text(
                   'School Supplies',
                   style: GoogleFonts.albertSans(
-                    fontSize: 60,
+                    fontSize: 57,
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -100,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => HomePage()),
+                        MaterialPageRoute(builder: (context) => HomePage(title: '')),
                       );
                     },
                     child: Container(

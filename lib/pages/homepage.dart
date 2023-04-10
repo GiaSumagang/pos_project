@@ -1,93 +1,112 @@
 import 'package:flutter/material.dart';
+import 'package:pos_project/POS%20screens/dashboard.dart';
 import 'package:pos_project/pages/profile.dart';
 import 'package:pos_project/pages/settings.dart';
-import 'package:pos_project/screens/loginpage.dart';
-import 'helpsupp.dart';
 
 class HomePage extends StatefulWidget {
+  HomePage({Key? key, required this.title}) : super(key: key);
+  final String title;
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  int _currentIndex = 0;
+
+  final List<Widget> _children = [
+    PlaceholderWidget(),
+    SettingsPage(),
+    ProfilePage(),
+  ];
+
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.red[900],
-        title: const Text('School Supplies'),
-        centerTitle: true,
+        title: Text(widget.title),
       ),
       drawer: Drawer(
+        elevation: 1.5,
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
+            const DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.red[900],
+                color: Colors.redAccent,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: const [
-                  Text(
-                    'User',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
+              padding: EdgeInsets.only(top: 10),
+              child: Text(
+                'Drawer Header',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.person),
-              title: const Text('Profile'),
+              leading: Icon(Icons.home),
+              title: Text('Dashboard'),
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ProfilePage()),
+                  MaterialPageRoute(builder: (context) => DashboardPage()),
                 );
               },
             ),
             ListTile(
               leading: Icon(Icons.settings),
-              title: Text('Settings'),
+              title: Text('Cart'),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SettingsPage()),
-                );
+                Navigator.pop(context);
               },
             ),
             ListTile(
               leading: Icon(Icons.help),
-              title: Text('Help & Support'),
+              title: Text('Settings'),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HelpSupportPage()),
-                );
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.logout),
-              title: Text('Logout'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                );
+                Navigator.pop(context);
               },
             ),
           ],
         ),
       ),
-      body: Column(
+      body: _children[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: onTabTapped,
+        currentIndex: _currentIndex,
+        items: [
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.search),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class PlaceholderWidget extends StatelessWidget {
+
+  PlaceholderWidget();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
         children: [
           Expanded(
             flex: 3,
@@ -130,23 +149,23 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildGridItem(String label, IconData icon) {
-    return GestureDetector(
-      onTap: () {},
-      child: Card(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 48),
-            SizedBox(height: 8),
-            Text(label, style: TextStyle(fontSize: 16)),
-          ],
-        ),
-      ),
     );
   }
 }
+
+Widget _buildGridItem(String label, IconData icon) {
+  return GestureDetector(
+    onTap: () {},
+    child: Card(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, size: 48),
+          SizedBox(height: 8),
+          Text(label, style: TextStyle(fontSize: 16)),
+        ],
+      ),
+    ),
+  );
+}
+
