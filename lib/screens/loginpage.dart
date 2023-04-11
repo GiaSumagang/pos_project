@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pos_project/POS%20screens/dashboard.dart';
-import 'package:pos_project/pages/homepage.dart';
 import 'package:pos_project/screens/registerpage.dart';
 
+import '../Drawer Pages/homepage.dart';
 import '../extra/squaretile.dart';
 
 class LoginPage extends StatefulWidget {
@@ -101,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => HomePage(title: '')),
+                        MaterialPageRoute(builder: (context) => const HomePage()),
                       );
                     },
                     child: Container(
