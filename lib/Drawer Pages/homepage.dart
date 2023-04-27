@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pos_project/Homepage%20Pages/search.dart';
+import 'package:pos_project/screens/loginpage.dart';
 import '../Homepage Pages/dashboard.dart';
-import '../screens/loginpage.dart';
 import 'helpsupp.dart';
 import 'profile.dart';
 import 'settings.dart';
@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.pop(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
                 );
               },
             ),
