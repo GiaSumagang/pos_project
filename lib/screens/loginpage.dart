@@ -50,30 +50,28 @@ class _LoginPageState extends State<LoginPage> {
         body: Container(
             color: Colors.black,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(children: [
-                const Icon(
-                  Icons.note_alt_rounded,
-                  size: 100,
-                  color: Colors.white,
-                ),
-                Text(
-                  'School Supplies',
-                  style:
-                      GoogleFonts.albertSans(fontSize: 50, color: Colors.white),
-                ),
-                const SizedBox(height: 10),
-
-                const SizedBox(height: 50),
-                Card(
-                  color: Colors.grey,
-                  elevation: 10,
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  shape: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(40),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(children: [
+                  const Icon(
+                    Icons.note_alt_rounded,
+                    size: 100,
+                    color: Colors.white,
                   ),
-                  child: Column(
-                    children: [
+                  Text(
+                    '',
+                    style: GoogleFonts.albertSans(
+                        fontSize: 50, color: Colors.white),
+                  ),
+                  const SizedBox(height: 10),
+                  const SizedBox(height: 50),
+                  Card(
+                    color: Colors.grey,
+                    elevation: 10,
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    shape: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    child: Column(children: [
                       SizedBox(
                         child: Padding(
                             padding: const EdgeInsets.symmetric(
@@ -112,54 +110,58 @@ class _LoginPageState extends State<LoginPage> {
                       ElevatedButton(
                         onPressed: () {
                           Navigator.push(
-                             context, MaterialPageRoute(builder: (context) => const HomePage()),
-                             );
-                          },
-                      child: Text('LOG IN'),
-                    ),
-                    const SizedBox(height: 30),
-
-                // google + apple sign in buttons
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    // google button
-                    SquareTile(imagePath: 'assets/google.png'),
-
-                    SizedBox(width: 25),
-
-                    // apple button
-                    SquareTile(imagePath: 'assets/fb.png')
-                  ],
-                ),
-                const SizedBox(height: 30),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Not a member?',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.white),
-                    ),
-                    Builder(builder: (context) {
-                      return GestureDetector(
-                        onTap: () {
-                          MaterialPageRoute(
-                              builder: (context) => const RegisterPage());
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomePage()),
+                          );
                         },
-                        child: const Text(
-                          ' Register Now',
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontWeight: FontWeight.bold,
+                        child: Text('LOG IN'),
+                      ),
+                      const SizedBox(height: 30),
+
+                      // google + apple sign in buttons
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          // google button
+                          SquareTile(imagePath: 'assets/google.png'),
+
+                          SizedBox(width: 25),
+
+                          // apple button
+                          SquareTile(imagePath: 'assets/fb.png')
+                        ],
+                      ),
+                      const SizedBox(height: 30),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Not a member?',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
                           ),
-                        ),
-                      );
-                    })
-                  ],
-                ),
-              ]),
-            )]))));
+                          Builder(builder: (context) {
+                            return GestureDetector(
+                              onTap: () {
+                                MaterialPageRoute(
+                                    builder: (context) => const RegisterPage());
+                              },
+                              child: const Text(
+                                ' Register Now',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            );
+                          })
+                        ],
+                      ),
+                    ]),
+                  )
+                ]))));
   }
 }
