@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red[900],
+        backgroundColor: Colors.black,
         title: const Text("School Supplies"),
       ),
       drawer: Drawer(
@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             DrawerHeader(
               decoration: const BoxDecoration(
-                color: Colors.redAccent,
+                color: Colors.white,
               ),
               padding: const EdgeInsets.only(top: 10),
               child: Column(
@@ -113,7 +113,7 @@ class _HomePageState extends State<HomePage> {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Colors.red,
+                  color: Colors.black,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -146,7 +146,7 @@ class _HomePageState extends State<HomePage> {
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomePage()));
               },
-              child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.yellow,),
+              child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.black,),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
@@ -167,7 +167,7 @@ class _HomePageState extends State<HomePage> {
               var products;
               Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchPage(products: products)));
             },
-            child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.blue,),
+            child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.black,),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
@@ -187,7 +187,7 @@ class _HomePageState extends State<HomePage> {
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
             },
-            child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.green,),
+            child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.black,),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [

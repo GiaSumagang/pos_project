@@ -109,17 +109,15 @@ class _LoginPageState extends State<LoginPage> {
                                       fontWeight: FontWeight.bold)),
                             )),
                       ),
-                      const SizedBox(),
-                      RoundedButton(
-                        btnText: 'LOG IN',
-                        onBtnPressed: () => loginPressed(),
-                      ),
-                      const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20)),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 30),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                             context, MaterialPageRoute(builder: (context) => const HomePage()),
+                             );
+                          },
+                      child: Text('LOG IN'),
+                    ),
+                    const SizedBox(height: 30),
 
                 // google + apple sign in buttons
                 Row(
@@ -162,6 +160,6 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ]),
-            )));
+            )]))));
   }
 }
