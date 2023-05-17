@@ -1,44 +1,61 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:pos_project/Drawer%20Pages/homepage.dart';
-import '../auth/auth_services.dart';
-import '../auth/globals.dart';
-import '../extra/rounded_button.dart';
-import 'loginpage.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
-
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  String _email = '';
-  String _password = '';
-  String _name = '';
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+  TextEditingController();
 
-  createAccountPressed() async {
-    bool emailValid = RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(_email);
-    if (emailValid) {
-      http.Response response =
-      await AuthServices.register(_name, _email, _password);
-      Map responseMap = jsonDecode(response.body);
-      if (response.statusCode == 200) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => const HomePage(),
-            ));
-      } else {
-        errorSnackBar(context, responseMap.values.first[0]);
-      }
+  Future<void> register() async {
+    String name = _nameController.text.trim();
+    String email = _emailController.text.trim();
+    String password = _passwordController.text.trim();
+    String confirmPassword = _confirmPasswordController.text.trim();
+
+    // API endpoint for registration
+    final String registerUrl = 'https://your-api-domain.com/register';
+
+    // Send registration request
+    final response = await http.post(
+      Uri.parse(registerUrl),
+      body: {
+        'name': name,
+        'email': email,
+        'password': password,
+        'password_confirmation': confirmPassword,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      // Registration successful, handle the response data
+      var responseData = json.decode(response.body);
+      // TODO: Handle the successful registration response (e.g., show success message, navigate to login screen)
     } else {
-      errorSnackBar(context, 'email not valid');
+      // Registration failed, display an error message
+      var errorData = json.decode(response.body);
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Registration Error'),
+          content: Text(errorData['message']),
+          actions: [
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      );
     }
   }
 
@@ -46,80 +63,47 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        centerTitle: true,
-        elevation: 0,
-        title: const Text(
-          'Registration',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        title: Text('Register'),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.all(16.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 20,
-            ),
             TextField(
-              decoration: const InputDecoration(
-                hintText: 'Name',
+              controller: _nameController,
+              decoration: InputDecoration(
+                labelText: 'Name',
               ),
-              onChanged: (value) {
-                _name = value;
-              },
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            SizedBox(height: 16.0),
             TextField(
-              decoration: const InputDecoration(
-                hintText: 'Email',
+              controller: _emailController,
+              decoration: InputDecoration(
+                labelText: 'Email',
               ),
-              onChanged: (value) {
-                _email = value;
-              },
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            SizedBox(height: 16.0),
             TextField(
+              controller: _passwordController,
               obscureText: true,
-              decoration: const InputDecoration(
-                hintText: 'Password',
+              decoration: InputDecoration(
+                labelText: 'Password',
               ),
-              onChanged: (value) {
-                _password = value;
-              },
             ),
-            const SizedBox(
-              height: 40,
-            ),
-            RoundedButton(
-              btnText: 'Create Account',
-              onBtnPressed: () => createAccountPressed(),
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => const LoginPage(),
-                    ));
-              },
-              child: const Text(
-                'already have an account',
-                style: TextStyle(
-                  decoration: TextDecoration.underline,
-                ),
+            SizedBox(height: 16.0),
+            TextField(
+              controller: _confirmPasswordController,
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: 'Confirm Password',
               ),
-            )
+            ),
+            SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: register,
+              child: Text('Register'),
+            ),
           ],
         ),
       ),
